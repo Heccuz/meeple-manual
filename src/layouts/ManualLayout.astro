@@ -1,0 +1,50 @@
+---
+import MainLayout from './MainLayout.astro';
+
+interface Props {
+  title: string;
+  players?: string;
+  duration?: string;
+  difficulty?: string;
+  category?: string;
+}
+
+const { title, players, duration, difficulty, category } = Astro.props;
+---
+
+<MainLayout title={title}>
+
+  <!-- Header del manual -->
+  <div style="
+    background-color: #2c2c2c;
+    color: #f0c040;
+    padding: 10px 16px;
+    borderRadius: 4px;
+    marginBottom: 12px;
+    letterSpacing: 1px;
+    textAlign: center;
+  ">
+    <h1 style="margin: 0; fontSize: 15pt;">{title}</h1>
+  </div>
+
+  <!-- Badges de info rápida -->
+  {(players || duration || difficulty || category) && (
+    <div class="flex flex-wrap gap-2 mb-6 text-sm">
+      {players   && <span class="bg-slate-700 text-white px-3 py-1 rounded-full">👥 {players}</span>}
+      {duration  && <span class="bg-slate-700 text-white px-3 py-1 rounded-full">⏱ {duration}</span>}
+      {difficulty && <span class="bg-slate-700 text-white px-3 py-1 rounded-full">🎯 {difficulty}</span>}
+      {category  && <span class="bg-slate-700 text-white px-3 py-1 rounded-full">🗂 {category}</span>}
+    </div>
+  )}
+
+  <!-- Contenido del .mdx -->
+  <slot />
+
+  <!-- Volver al inicio -->
+  <div class="mt-10 pt-4 border-t border-slate-200">
+    <a href="/" class="text-slate-500 hover:text-slate-800 text-sm transition-colors">
+      ← Volver a todos los manuales
+    </a>
+  </div>
+
+</MainLayout>

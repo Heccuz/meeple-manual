@@ -1,0 +1,255 @@
+---
+title: "⚙️ BRASS: BIRMINGHAM"
+players: "2-4"
+duration: "60-120 min"
+difficulty: "3.9/5"
+category: "Estrategia / Económico"
+description: "Hoja de referencia rápida para Brass: Birmingham. Acciones, recursos, reglas clave y consejos."
+---
+
+import TwoColumns from '../../components/manual/TwoColumns.astro';
+import {
+  Note, Alert, Advice, Badge, Divider,
+  Section, ActionBox, ResourceTable, StepList, List
+} from '../../components';
+
+<TwoColumns>
+  <div slot="left">
+
+    <Section title="🔁 TURNO">
+      <List
+        variant="check"
+        items={[
+          'Realiza <strong>2 acciones</strong> (primera ronda de cada era: solo 1)',
+          'Roba cartas hasta tener <strong>8 en mano</strong>',
+          'Toda acción requiere <strong>descartar 1 carta</strong>',
+          'Puedes realizar la misma acción dos veces en un turno',
+          'Puedes <strong>pasar</strong> (igualmente debes descartar 1 carta)',
+          '<strong>Orden de turno:</strong> El jugador que haya gastado menos dinero en esta ronda será el primero en la siguiente. Empates mantienen orden relativo.',
+        ]}
+      />
+    </Section>
+
+    <Section title="🔧 ACCIONES">
+      <ActionBox
+        title="🏭 CONSTRUIR INDUSTRIA"
+        steps={[
+          { label: 'Descarta 1 carta' },
+          { label: 'Coloca industria' },
+          { label: 'Paga £ + recursos' },
+          { label: 'Fin' }
+        ]}
+      >
+        <List
+          variant="dot"
+          items={[
+            'Debe estar en tu red (excepto si es tu primera loseta y no hay nada en tablero)',
+            'Respeta los iconos de ciudad',
+            '<strong>Era Canales:</strong> máx. 1 loseta tuya por localización',
+            '<strong>Era Ferrocarril:</strong> varias losetas tuyas por localización',
+            'Cerveza propia → sin conexión | Cerveza ajena → <strong>debe estar conectada</strong>',
+          ]}
+        />
+      </ActionBox>
+
+      <ActionBox
+        title="🌉 CONSTRUIR CANAL / RAÍL"
+        steps={[
+          { label: 'Descarta 1 carta' },
+          { label: 'Coloca conexión' },
+          { label: '(Raíl: paga carbón)' },
+          { label: 'Fin' }
+        ]}
+      >
+        <List
+          variant="dot"
+          items={[
+            'Extiende tu red. Máximo 2 enlaces entre dos ciudades',
+            'Canal: £3 | Raíl: £5. Raíl doble: £15 + 1 cerveza',
+            'Carbón para raíles debe estar conectado',
+          ]}
+        />
+      </ActionBox>
+
+      <ActionBox
+        title="⛏️ DESARROLLAR"
+        steps={[
+          { label: 'Descarta 1 carta' },
+          { label: 'Paga hierro (1 por loseta)' },
+          { label: 'Elimina 1 o 2 losetas' },
+          { label: 'Fin' }
+        ]}
+      >
+        <List
+          variant="dot"
+          items={[
+            'Hierro no necesita red ni conexión',
+            'Solo puedes quitar losetas de menor nivel',
+          ]}
+        />
+      </ActionBox>
+
+      <ActionBox
+        title="💰 VENDER (SELL)"
+        steps={[
+          { label: 'Descarta 1 carta' },
+          { label: 'Consume cerveza' },
+          { label: 'Voltea industria' },
+          { label: 'Fin' }
+        ]}
+      >
+        <List
+          variant="dot"
+          items={[
+            'Conexión necesaria. Cerveza ajena → conectada',
+            'Voltear: avanzas marcador de ingresos',
+          ]}
+        />
+      </ActionBox>
+
+      <ActionBox
+        title="💷 PRÉSTAMO"
+        steps={[
+          { label: 'Descarta 1 carta' },
+          { label: 'Recibe £30' },
+          { label: 'Baja ingresos' },
+          { label: 'Fin' }
+        ]}
+      >
+        <List
+          variant="dot"
+          items={[
+            'Límite: no llevar ingresos por debajo de -10',
+          ]}
+        />
+      </ActionBox>
+
+      <ActionBox
+        title="🔍 EXPLORAR (SCOUT)"
+        steps={[
+          { label: 'Descarta 1 carta' },
+          { label: 'Descarta 1 carta extra' },
+          { label: 'Toma 2 comodines' },
+          { label: 'Fin' }
+        ]}
+      >
+        <List
+          variant="dot"
+          items={[
+            'Solo si no tienes comodines en mano',
+          ]}
+        />
+      </ActionBox>
+    </Section>
+
+  </div>
+
+  <div slot="right">
+
+    <Section title="🌐 RED Y RECURSOS">
+      <ResourceTable
+        rows={[
+          {
+            recurso: '<strong>🪨 Carbón</strong>',
+            regla: '<strong>Debe estar conectado.</strong> Se usa de la mina más cercana conectada sin voltear.<br/><strong>Mover al mercado:</strong> Solo al construir mina/fundición (inmediato). Nunca después.'
+          },
+          {
+            recurso: '<strong>🔶 Hierro</strong>',
+            regla: '<strong>No necesita red.</strong> Se usa de cualquier fundición sin voltear ajena/propia.'
+          },
+          {
+            recurso: '<strong>🍺 Cerveza</strong>',
+            regla: '<strong>Ajena</strong> → debe estar conectada.<br/><strong>Propia/Comerciante</strong> → no requiere conexión.'
+          }
+        ]}
+      />
+    </Section>
+
+    <Section title="⚠️ REGLAS CLAVE">
+      <List
+        variant="arrow"
+        items={[
+          '<strong>Deuda:</strong> Si no puedes pagar ingresos negativos, retira losetas industriales (£ valor = mitad coste) o pierde 1 PV por £1 faltante.',
+          '<strong>Cervecerías Artesanales:</strong> Localizaciones especiales (Cannock, etc.) con reglas de conexión fijas.',
+          '<strong>Límites:</strong> Ingresos máximos 30. Préstamos: min -10 ingresos.',
+          '<strong>Empates finales:</strong> Ingresos más altos → Dinero restante.',
+        ]}
+      />
+    </Section>
+
+    <Section title="🔄 VOLTEAR Y SOBREEDIFICAR">
+      <List
+        variant="dot"
+        items={[
+          '<strong>Voltear:</strong> Fábricas (Vender); Minas/Fundiciones/Cervezas (agotar recursos).',
+        ]}
+      />
+      <strong>Sobreedificar:</strong>
+      <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '5px' }}>
+        <thead>
+          <tr>
+            <th style={{ backgroundColor: '#4a3000', color: '#f0c040', padding: '3px 6px', textAlign: 'left' }}>Propia</th>
+            <th style={{ backgroundColor: '#4a3000', color: '#f0c040', padding: '3px 6px', textAlign: 'left' }}>Oponente</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style={{ padding: '3px 6px', borderBottom: '1px solid #ddd' }}>Cualquier industria</td>
+            <td style={{ padding: '3px 6px', borderBottom: '1px solid #ddd' }}>Solo Carbón/Hierro (si agotados)</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style={{  marginTop: '4px', color: '#444' }}>
+        Losetas sobreedificadas al retiro/caja, sin PV ni pérdida de ingresos ya ganados.
+      </p>
+    </Section>
+
+    <Section title="🧱 FIN ERA DE CANALES">
+      <Alert>
+        <List
+          variant="arrow"
+          items={[
+            'TODOS los canales se eliminan.',
+            'TODO nivel 1 se retira (aún volteadas).',
+            'Nivel 2+ persisten. Dinero/Ingresos no cambian.',
+          ]}
+        />
+      </Alert>
+    </Section>
+
+    <Section title="❗ ERRORES COMUNES">
+      <Alert>
+        <List
+          variant="arrow"
+          items={[
+            'No prever fin de era',
+            'No desarrollar a tiempo',
+            'No conectar carbón para vender',
+            'Confundir cerveza propia vs. ajena',
+          ]}
+        />
+      </Alert>
+    </Section>
+
+    <Section title="🧠 CONSEJOS">
+      <Advice>
+        <List
+          variant="star"
+          items={[
+            'Desarrollar es clave para PV',
+            'Préstamos = dinero rápido en era temprana',
+            'Nivel de ingresos final ≠ PV',
+            'Gestiona tu red al inicio de la Era Ferrocarril',
+          ]}
+        />
+      </Advice>
+    </Section>
+
+  </div>
+</TwoColumns>
+
+<Divider />
+
+<div style={{ textAlign: 'center',  color: '#888' }}>
+  Brass: Birmingham — Hoja de Referencia | Creado con Manual Meeple
+</div>

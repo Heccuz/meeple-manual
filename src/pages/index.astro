@@ -1,17 +1,70 @@
 ---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import MainLayout from "../layouts/MainLayout.astro";
 
+type ManualEntry = CollectionEntry<"manuals">;
+
+const manuals = await getCollection("manuals");
+
+manuals.sort((a: ManualEntry, b: ManualEntry) =>
+  a.data.title.localeCompare(b.data.title),
+);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout title="Inicio">
+  <div class="mb-8 text-center">
+    <h1 class="text-3xl font-bold text-slate-800 mb-2">🎲 Manual Meeple</h1>
+    <p class="text-slate-500">
+      Resúmenes y hojas de referencia para tus juegos de mesa favoritos.
+    </p>
+  </div>
+
+  {
+    manuals.length === 0 ? (
+      <p class="text-center text-slate-400">No hay manuals todavía.</p>
+    ) : (
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {manuals.map((manual: ManualEntry) => (
+          <a
+            href={`/manuals/${manual.id}`}
+            class="group block rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:border-yellow-400 hover:shadow-md"
+          >
+            <h2 class="mb-2 text-base font-bold text-slate-800 group-hover:text-yellow-700">
+              {manual.data.title}
+            </h2>
+
+            {manual.data.description && (
+              <p class="mb-3 text-sm text-slate-500">
+                {manual.data.description}
+              </p>
+            )}
+
+            <div class="mt-auto flex flex-wrap gap-1">
+              {manual.data.players && (
+                <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
+                  👥 {manual.data.players}
+                </span>
+              )}
+              {manual.data.duration && (
+                <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
+                  ⏱ {manual.data.duration}
+                </span>
+              )}
+              {manual.data.difficulty && (
+                <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
+                  🎯 {manual.data.difficulty}
+                </span>
+              )}
+              {manual.data.category && (
+                <span class="rounded-full bg-yellow-100 px-2 py-0.5 text-xs text-yellow-700">
+                  {manual.data.category}
+                </span>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+    )
+  }
+</MainLayout>

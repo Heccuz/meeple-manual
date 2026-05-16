@@ -1,0 +1,20 @@
+---
+interface Props {
+  collapseOnMobile?: boolean;
+}
+
+const { collapseOnMobile = true } = Astro.props;
+---
+
+<div class:list={[
+  'grid gap-4',
+  collapseOnMobile ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-2',
+]}>
+  <div class="md:border-r md:border-slate-300 md:pr-3">
+    <slot name="left" />
+  </div>
+
+  <div class="md:pl-3">
+    <slot name="right" />
+  </div>
+</div>
