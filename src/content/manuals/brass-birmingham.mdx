@@ -43,13 +43,37 @@ import {
         <List
           variant="dot"
           items={[
-            'Debe estar en tu red (excepto si es tu primera loseta y no hay nada en tablero)',
-            'Respeta los iconos de ciudad',
+            'Si la carta es de localización no necesita red de conexiones',
+            'Si usas carta de industria necesitas red de conexiones.',
             '<strong>Era Canales:</strong> máx. 1 loseta tuya por localización',
             '<strong>Era Ferrocarril:</strong> varias losetas tuyas por localización',
             'Cerveza propia → sin conexión | Cerveza ajena → <strong>debe estar conectada</strong>',
+            'Siempre construyes la loseta de nivel más bajo disponible',
+            '<strong>No olvides colocar carbón o hierro según corresponda</strong>',
+            'Si construyes mina de carbón o hierro, solo puedes vender al mercado en este momento.',
+            '<strong>Cervecería artesanal: </strong> Solo se puede construir con carta de industria o comodín de industria, se necesita estar conectado.',
           ]}
         />
+        
+        <strong>Sobreedificar:</strong>
+      <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '5px' }}>
+        <thead>
+          <tr>
+            <th style={{ backgroundColor: '#4a3000', color: '#f0c040', padding: '3px 6px', textAlign: 'left' }}>Propia</th>
+            <th style={{ backgroundColor: '#4a3000', color: '#f0c040', padding: '3px 6px', textAlign: 'left' }}>Oponente</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style={{ padding: '3px 6px', borderBottom: '1px solid #ddd' }}>Cualquier industria</td>
+            <td style={{ padding: '3px 6px', borderBottom: '1px solid #ddd' }}>Solo Carbón/Hierro (si agotados)</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style={{  marginTop: '4px', color: '#444' }}>
+        Losetas sobreedificadas al retiro/caja, sin PV ni pérdida de ingresos ya ganados.
+      </p>
+
       </ActionBox>
 
       <ActionBox
@@ -64,8 +88,9 @@ import {
         <List
           variant="dot"
           items={[
+            'Necesita tu red de conexiones',
             'Extiende tu red. Máximo 2 enlaces entre dos ciudades',
-            'Canal: £3 | Raíl: £5. Raíl doble: £15 + 1 cerveza',
+            '<strong>Canal:</strong> £3 | <strong>Raíl:</strong> £5. <strong>Raíl doble:</strong> £15 + 1 cerveza',
             'Carbón para raíles debe estar conectado',
           ]}
         />
@@ -87,6 +112,7 @@ import {
             'Solo puedes quitar losetas de menor nivel',
           ]}
         />
+
       </ActionBox>
 
       <ActionBox
@@ -101,8 +127,11 @@ import {
         <List
           variant="dot"
           items={[
+            'Conexión con comerciante que pueda comprar ese tipo de industria',
             'Conexión necesaria. Cerveza ajena → conectada',
             'Voltear: avanzas marcador de ingresos',
+            'Si usas cerveza de comerciante recibes: <strong> Bonificación de los Coomerciantes</strong>',
+            'Puedes vender tantas industrias como materiales puedas pagar.'
           ]}
         />
       </ActionBox>
@@ -120,6 +149,8 @@ import {
           variant="dot"
           items={[
             'Límite: no llevar ingresos por debajo de -10',
+            'Retrocedes en 3 tu nivel de ingresos, no casillas.',
+            'Los préstamos nunca se devuelven.'
           ]}
         />
       </ActionBox>
@@ -128,8 +159,8 @@ import {
         title="🔍 EXPLORAR (SCOUT)"
         steps={[
           { label: 'Descarta 1 carta' },
-          { label: 'Descarta 1 carta extra' },
-          { label: 'Toma 2 comodines' },
+          { label: 'Descarta 2 carta extra' },
+          { label: 'Toma 2 comodines  (distintos)' },
           { label: 'Fin' }
         ]}
       >
@@ -151,7 +182,7 @@ import {
         rows={[
           {
             recurso: '<strong>🪨 Carbón</strong>',
-            regla: '<strong>Debe estar conectado.</strong> Se usa de la mina más cercana conectada sin voltear.<br/><strong>Mover al mercado:</strong> Solo al construir mina/fundición (inmediato). Nunca después.'
+            regla: '<strong>Debe estar conectado.</strong> Se usa de la mina más cercana conectada sin voltear.<br/><strong>Comprar de mercado:</strong> Debe estar conectado al icono de comercio. (⇆).<br/><strong>Mover al mercado:</strong> Solo al construir mina/fundición (inmediato). Nunca después.'
           },
           {
             recurso: '<strong>🔶 Hierro</strong>',
@@ -159,7 +190,7 @@ import {
           },
           {
             recurso: '<strong>🍺 Cerveza</strong>',
-            regla: '<strong>Ajena</strong> → debe estar conectada.<br/><strong>Propia/Comerciante</strong> → no requiere conexión.'
+            regla: '<strong>Ajena / Comerciante</strong> → debe estar conectada.<br/><strong>Propia</strong> → no requiere conexión.'
           }
         ]}
       />
@@ -175,33 +206,6 @@ import {
           '<strong>Empates finales:</strong> Ingresos más altos → Dinero restante.',
         ]}
       />
-    </Section>
-
-    <Section title="🔄 VOLTEAR Y SOBREEDIFICAR">
-      <List
-        variant="dot"
-        items={[
-          '<strong>Voltear:</strong> Fábricas (Vender); Minas/Fundiciones/Cervezas (agotar recursos).',
-        ]}
-      />
-      <strong>Sobreedificar:</strong>
-      <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '5px' }}>
-        <thead>
-          <tr>
-            <th style={{ backgroundColor: '#4a3000', color: '#f0c040', padding: '3px 6px', textAlign: 'left' }}>Propia</th>
-            <th style={{ backgroundColor: '#4a3000', color: '#f0c040', padding: '3px 6px', textAlign: 'left' }}>Oponente</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style={{ padding: '3px 6px', borderBottom: '1px solid #ddd' }}>Cualquier industria</td>
-            <td style={{ padding: '3px 6px', borderBottom: '1px solid #ddd' }}>Solo Carbón/Hierro (si agotados)</td>
-          </tr>
-        </tbody>
-      </table>
-      <p style={{  marginTop: '4px', color: '#444' }}>
-        Losetas sobreedificadas al retiro/caja, sin PV ni pérdida de ingresos ya ganados.
-      </p>
     </Section>
 
     <Section title="🧱 FIN ERA DE CANALES">
