@@ -1,0 +1,34 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import ManualLayout from "../../layouts/ManualLayout.astro";
+
+type ManualEntry = CollectionEntry<"manuals">;
+
+export async function getStaticPaths() {
+  const manuals = await getCollection("manuals");
+
+  return manuals.map((manual: ManualEntry) => ({
+    params: { slug: manual.id },
+    props: { manual },
+  }));
+}
+
+interface Props {
+  manual: ManualEntry;
+}
+
+const { manual } = Astro.props as Props;
+const { Content } = await render(manual);
+const { title, players, duration, difficulty, category } = manual.data;
+---
+
+<ManualLayout
+  title={title}
+  players={players}
+  duration={duration}
+  difficulty={difficulty}
+  category={category}
+>
+  <Content />
+</ManualLayout>

@@ -1,0 +1,46 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+}
+
+const { title = "Manual Meeple" } = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} | Manual Meeple</title>
+  </head>
+  <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+    <nav class="bg-slate-900 text-white px-6 py-4 shadow-md">
+      <div class="max-w-5xl mx-auto flex justify-between items-center">
+        <a
+          href="/"
+          class="text-xl font-bold tracking-wide hover:text-yellow-400 transition-colors"
+        >
+          <span class="flex items-center gap-2">
+            <img src="/logo.png" alt="manual-meeple-logo" class="w-8 h-auto" />
+            <span>Manual Meeple</span>
+          </span>
+        </a>
+        <div class="flex gap-6 text-sm">
+          <a href="/" class="hover:text-yellow-400 transition-colors">Inicio</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-1 max-w-5xl mx-auto w-full px-4 py-8">
+      <slot />
+    </main>
+
+    <footer
+      class="text-center py-6 text-slate-400 text-sm border-t border-slate-200"
+    >
+      Hecho para la mesa de juegos 🃏
+    </footer>
+  </body>
+</html>
